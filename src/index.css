@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Tajawal:wght@300;400;500;700;900&family=Scheherazade+New:wght@400;500;700&family=Marhey:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Rose palette */
+  --rose-50:   #fdf5f7;
+  --rose-100:  #f9e2e8;
+  --rose-200:  #f2c4ce;   /* light pink — primary highlight */
+  --rose-300:  #e8a3b3;
+  --rose-400:  #d68499;
+  --rose-500:  #c2637a;   /* deep rose — accent */
+  --rose-600:  #a14d63;
+  --rose-700:  #7b3a4c;
+  --rose-800:  #4d2330;
+  --rose-900:  #2a131c;
+  --noir:      #180d10;   /* deep ink — base */
+  --noir-soft: #20141a;
+  --noir-card: #261820;
+
+  /* Helpers */
+  --cream:    #fff5f7;
+  --text:     #fdf5f7;
+  --muted:    #d9adb8;
+}
+
+html {
+  scroll-behavior: smooth;
+  direction: rtl;
+  background: var(--noir);
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(194,99,122,0.18), transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(242,196,206,0.10), transparent 55%),
+    var(--noir);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: 'Tajawal', 'Arial', sans-serif;
+  overflow-x: hidden;
+  direction: rtl;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  direction: rtl;
+}
+
+/* ─────── Typography helpers ─────── */
+.font-amiri        { font-family: 'Amiri', 'Scheherazade New', serif; }
+.font-scheherazade { font-family: 'Scheherazade New', 'Amiri', serif; }
+.font-tajawal      { font-family: 'Tajawal', 'Arial', sans-serif; }
+.font-marhey       { font-family: 'Marhey', 'Tajawal', sans-serif; }
+
+/* legacy aliases */
+.font-playfair   { font-family: 'Amiri', serif; }
+.font-cormorant  { font-family: 'Scheherazade New', 'Amiri', serif; }
+.font-montserrat { font-family: 'Tajawal', sans-serif; }
+
+/* ─────── Scrollbar ─────── */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--noir-soft); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--rose-500), var(--rose-700));
+  border-radius: 3px;
+}
+
+/* ─────── Gradient text utilities ─────── */
+.rose-text {
+  background: linear-gradient(135deg, #f2c4ce 0%, #ffe6ec 35%, #c2637a 70%, #f2c4ce 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.shimmer-rose {
+  background: linear-gradient(90deg, #c2637a 0%, #f2c4ce 25%, #ffffff 50%, #f2c4ce 75%, #c2637a 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: shimmerMove 5s linear infinite;
+}
+
+@keyframes shimmerMove {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* ─────── Float / drift ─────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%      { transform: translateY(-18px) rotate(2deg); }
+}
+.float { animation: float 5s ease-in-out infinite; }
+
+@keyframes float3d {
+  0%, 100% { transform: translate3d(0,0,0) rotateX(0deg) rotateY(0deg); }
+  25%      { transform: translate3d(8px,-12px,20px) rotateX(4deg) rotateY(-6deg); }
+  50%      { transform: translate3d(0,-20px,40px) rotateX(0deg) rotateY(6deg); }
+  75%      { transform: translate3d(-8px,-12px,20px) rotateX(-4deg) rotateY(6deg); }
+}
+.float-3d { animation: float3d 8s ease-in-out infinite; transform-style: preserve-3d; }
+
+/* ─────── Glow pulse ─────── */
+@keyframes glowPulseRose {
+  0%, 100% { box-shadow: 0 0 25px rgba(242,196,206,0.25), 0 0 60px rgba(194,99,122,0.15); }
+  50%      { box-shadow: 0 0 55px rgba(242,196,206,0.55), 0 0 120px rgba(194,99,122,0.35); }
+}
+.glow-rose { animation: glowPulseRose 4s ease-in-out infinite; }
+
+/* ─────── Petal fall ─────── */
+@keyframes petalFall {
+  0%   { transform: translate3d(0,-100px,0) rotate(0deg);   opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.6; }
+  100% { transform: translate3d(120px,110vh,0) rotate(720deg); opacity: 0; }
+}
+
+/* ─────── Rose bloom (loading) ─────── */
+@keyframes bloom {
+  0%   { transform: scale(0) rotate(-180deg); opacity: 0; }
+  60%  { transform: scale(1.08) rotate(20deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg);     opacity: 1; }
+}
+.bloom { animation: bloom 1.5s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+
+/* ─────── Slow rotate ─────── */
+@keyframes spinSlow {
+  to { transform: rotate(360deg); }
+}
+.spin-slow { animation: spinSlow 40s linear infinite; }
+
+@keyframes spinReverse {
+  to { transform: rotate(-360deg); }
+}
+.spin-reverse { animation: spinReverse 50s linear infinite; }
+
+/* ─────── Divider ─────── */
+.divider {
+  width: 90px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rose-300), transparent);
+  margin: 1.2rem auto;
+}
+
+/* ─────── Glass card (rose tint) ─────── */
+.glass {
+  background:
+    linear-gradient(135deg, rgba(242,196,206,0.08), rgba(194,99,122,0.04));
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(242,196,206,0.15);
+}
+
+/* ─────── 3D Card tilt ─────── */
+.tilt-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94),
+              box-shadow 0.5s ease;
+}
+.tilt-3d:hover {
+  transform: perspective(1000px) rotateX(-6deg) rotateY(6deg) translateY(-8px);
+  box-shadow:
+    0 30px 60px -20px rgba(194,99,122,0.5),
+    0 0 50px rgba(242,196,206,0.15);
+}
+
+.card-hover {
+  transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94),
+              box-shadow 0.4s ease,
+              border-color 0.4s ease;
+}
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(194,99,122,0.25);
+  border-color: rgba(242,196,206,0.4);
+}
+
+/* ─────── RSVP form inputs ─────── */
+.rsvp-input {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(242,196,206,0.25);
+  color: var(--cream);
+  transition: all 0.3s ease;
+  text-align: right;
+  direction: rtl;
+}
+.rsvp-input:focus {
+  outline: none;
+  border-color: var(--rose-200);
+  background: rgba(242,196,206,0.08);
+  box-shadow: 0 0 0 3px rgba(242,196,206,0.15),
+              0 0 25px rgba(194,99,122,0.18);
+}
+.rsvp-input::placeholder {
+  color: rgba(217,173,184,0.5);
+  text-align: right;
+  direction: rtl;
+}
+
+/* ─────── Countdown number tile ─────── */
+.countdown-number {
+  background:
+    linear-gradient(180deg, rgba(242,196,206,0.15), rgba(194,99,122,0.06));
+  border: 1px solid rgba(242,196,206,0.3);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 10px 30px rgba(24,13,16,0.4);
+}
+
+/* ─────── Map container ─────── */
+.map-container {
+  border: 1px solid rgba(242,196,206,0.25);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow:
+    0 20px 60px rgba(24,13,16,0.6),
+    0 0 40px rgba(194,99,122,0.12);
+}
+
+/* ─────── RTL helpers ─────── */
+[dir="rtl"] .text-left  { text-align: right; }
+[dir="rtl"] .text-right { text-align: left; }
+
+/* ─────── 3D perspective scene ─────── */
+.scene-3d {
+  perspective: 1400px;
+  perspective-origin: 50% 50%;
+}
+
+/* ─────── حرف اسم الهيرو بتدرّج فردي ─────── */
+.name-letter {
+  background: linear-gradient(180deg, #ffffff 0%, #f2c4ce 55%, #c2637a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ─────── Selection ─────── */
+::selection {
+  background: rgba(194,99,122,0.5);
+  color: #fff;
+}
+
+/* ─────── Reduced motion ─────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─────── Section heading parts (eyebrow / title / intro) ─────── */
+.section-eyebrow {
+  font-family: 'Tajawal', sans-serif;
+  color: rgba(242, 196, 206, 0.7);
+  letter-spacing: 0.3em;
+}
+
+.section-title {
+  font-family: 'Amiri', serif;
+  background: linear-gradient(180deg, #ffffff, var(--rose-200));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.section-intro {
+  font-family: 'Scheherazade New', serif;
+  color: rgba(242, 196, 206, 0.7);
+  font-style: italic;
+}
+
+/* ─────── Mobile tweaks ─────── */
+@media (max-width: 640px) {
+  body { font-size: 15px; }
+  .divider { width: 60px; }
+}

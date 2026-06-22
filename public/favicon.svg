@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="64" height="64">
+  <defs>
+    <radialGradient id="o" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#fde4ea"/>
+      <stop offset="55%" stop-color="#f2c4ce"/>
+      <stop offset="100%" stop-color="#c2637a"/>
+    </radialGradient>
+    <radialGradient id="i" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#ffe9ef"/>
+      <stop offset="60%" stop-color="#e8a3b3"/>
+      <stop offset="100%" stop-color="#7b3a4c"/>
+    </radialGradient>
+    <radialGradient id="c" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#7b3a4c"/>
+      <stop offset="100%" stop-color="#180d10"/>
+    </radialGradient>
+  </defs>
+  <rect width="100" height="100" rx="20" fill="#180d10"/>
+  <g transform="translate(0 0)">
+    <ellipse cx="50" cy="20" rx="14" ry="22" fill="url(#o)" opacity=".9" transform="rotate(0 50 50)"/>
+    <ellipse cx="50" cy="20" rx="14" ry="22" fill="url(#o)" opacity=".9" transform="rotate(45 50 50)"/>
+    <ellipse cx="50" cy="20" rx="14" ry="22" fill="url(#o)" opacity=".9" transform="rotate(90 50 50)"/>
+    <ellipse cx="50" cy="20" rx="14" ry="22" fill="url(#o)" opacity=".9" transform="rotate(135 50 50)"/>
+    <ellipse cx="50" cy="20" rx="14" ry="22" fill="url(#o)" opacity=".9" transform="rotate(180 50 50)"/>
+    <ellipse cx="50" cy="20" rx="14" ry="22" fill="url(#o)" opacity=".9" transform="rotate(225 50 50)"/>
+    <ellipse cx="50" cy="20" rx="14" ry="22" fill="url(#o)" opacity=".9" transform="rotate(270 50 50)"/>
+    <ellipse cx="50" cy="20" rx="14" ry="22" fill="url(#o)" opacity=".9" transform="rotate(315 50 50)"/>
+    <ellipse cx="50" cy="30" rx="10" ry="16" fill="url(#i)" transform="rotate(30 50 50)"/>
+    <ellipse cx="50" cy="30" rx="10" ry="16" fill="url(#i)" transform="rotate(90 50 50)"/>
+    <ellipse cx="50" cy="30" rx="10" ry="16" fill="url(#i)" transform="rotate(150 50 50)"/>
+    <ellipse cx="50" cy="30" rx="10" ry="16" fill="url(#i)" transform="rotate(210 50 50)"/>
+    <ellipse cx="50" cy="30" rx="10" ry="16" fill="url(#i)" transform="rotate(270 50 50)"/>
+    <ellipse cx="50" cy="30" rx="10" ry="16" fill="url(#i)" transform="rotate(330 50 50)"/>
+    <circle cx="50" cy="50" r="6" fill="url(#c)"/>
+    <circle cx="50" cy="50" r="2" fill="#180d10"/>
+  </g>
+</svg>
