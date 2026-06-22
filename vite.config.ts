@@ -7,7 +7,7 @@ export default defineConfig({
     tailwindcss(),
     react(),
   ],
-  base: '/weeding/',
+  base: '/wedding/',
   optimizeDeps: {
     include: ['framer-motion', 'gsap', 'lucide-react'],
   },
