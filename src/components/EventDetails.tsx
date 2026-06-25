@@ -4,21 +4,21 @@ import { Rose } from './Rose';
 import SectionHeading from './SectionHeading';
 
 const events = [
-  { time: '٥:٠٠ م', title: 'استقبال الضيوف',       description: 'استقبال حارّ مع المرطّبات والموسيقى الحيّة', Icon: Music },
-  { time: '٦:٠٠ م', title: 'حفل عقد القران',        description: 'مراسم العقد المقدّس في القاعة الكبرى',     Icon: Heart },
-  { time: '٧:٠٠ م', title: 'جلسة تصوير تذكاريّة',  description: 'توثيق اللحظات الجميلة مع العروسين',         Icon: Camera },
-  { time: '٨:٠٠ م', title: 'عشاء وسهرة الاحتفال', description: 'عشاء فاخر يليه رقص واحتفال بهيج',          Icon: Utensils },
+  { time: '5:00 م', title: 'استقبال الضيوف',       description: 'استقبال حارّ مع المرطّبات والموسيقى الحيّة', Icon: Music },
+  { time: '6:00 م', title: 'حفل عقد القران',        description: 'مراسم العقد المقدّس في القاعة الكبرى',     Icon: Heart },
+  { time: '7:00 م', title: 'جلسة تصوير تذكاريّة',  description: 'توثيق اللحظات الجميلة مع العروسين',         Icon: Camera },
+  { time: '8:00 م', title: 'عشاء وسهرة الاحتفال', description: 'عشاء فاخر يليه رقص واحتفال بهيج',          Icon: Utensils },
 ];
 
 const details = [
-  { Icon: Calendar, label: 'التاريخ', value: 'السبت، 10 أوكتوبر ٢٠٢٦',   sub: 'سجّل الموعد في مفكّرتك'             },
-  { Icon: Clock,    label: 'التوقيت', value: '٥:٠٠ م – ١٢:٠٠ ص',         sub: 'الأبواب تُفتح الساعة ٤:٣٠ م'         },
+  { Icon: Calendar, label: 'التاريخ', value: 'السبت، 10 أوكتوبر 2026',   sub: 'سجّل الموعد في مفكّرتك'             },
+  { Icon: Clock,    label: 'التوقيت', value: '5:00 م - 10:00 م',         sub: 'الأبواب تُفتح الساعة 4:30 م'         },
   { Icon: MapPin,   label: 'المكان',  value: 'القاعة الملكية',  sub: 'دمشق اتستراد المزة'         },
 ];
 
 export default function EventDetails() {
   return (
-    <section id="details" className="py-16 md:py-24 relative" dir="rtl">
+    <section id="details" className="py-20 md:py-28 relative" dir="rtl">
       {/* خلفية وردية ناعمة */}
       <div
         className="absolute inset-0 opacity-[0.04] pointer-events-none"
@@ -178,6 +178,7 @@ export default function EventDetails() {
         </motion.div>
 
         {/* كود اللباس */}
+    {/*
         <motion.div
           className="mt-14 md:mt-20 text-center"
           initial={{ opacity: 0, y: 20 }}
@@ -218,6 +219,7 @@ export default function EventDetails() {
             </p>
           </div>
         </motion.div>
+    */}
       </div>
     </section>
   );

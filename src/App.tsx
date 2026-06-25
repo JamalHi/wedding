@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import LoadingScreen   from './components/LoadingScreen';
 import ParticleField   from './components/ParticleField';
+import MusicPlayer     from './components/MusicPlayer';
 import Navbar          from './components/Navbar';
 import HeroSection     from './components/HeroSection';
 import CountdownTimer  from './components/CountdownTimer';
@@ -65,7 +66,7 @@ function CursorTrail() {
 /** فاصل أنيق بين الأقسام */
 function SectionDivider() {
   return (
-    <div className="flex items-center justify-center py-3 px-4 sm:px-6">
+    <div className="flex items-center justify-center pt-10 pb-4 md:pt-16 md:pb-6 px-4 sm:px-6">
       <div
         className="flex-1 h-px max-w-xs"
         style={{ background: 'linear-gradient(90deg, transparent, rgba(242,196,206,0.25), transparent)' }}
@@ -92,6 +93,7 @@ export default function App() {
 
       <ParticleField />
       <CursorTrail />
+      <MusicPlayer />
 
       <div className="relative z-10">
         <Navbar />

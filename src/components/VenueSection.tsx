@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Globe, Navigation } from 'lucide-react';
-import { Rose } from './Rose';
 import SectionHeading from './SectionHeading';
 
 export default function VenueSection() {
@@ -8,7 +7,7 @@ export default function VenueSection() {
     'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.6504858736247!2d46.67255391499984!3d24.68773398413143!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489399%3A0xba974d1c98e79fd5!2sKing%20Abdullah%20Road%2C%20Riyadh!5e0!3m2!1sar!2ssa!4v1620000000000!5m2!1sar!2ssa';
 
   return (
-    <section id="venue" className="py-16 md:py-24 relative" dir="rtl">
+    <section id="venue" className="py-20 md:py-28 relative" dir="rtl">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: 'linear-gradient(180deg, transparent, rgba(24,13,16,0.6), transparent)' }}
@@ -129,7 +128,7 @@ export default function VenueSection() {
             </div>
 
             {/* المواقف */}
-            <div
+         {/*   <div
               className="p-5 mt-4 relative"
               style={{
                 background:
@@ -161,6 +160,7 @@ export default function VenueSection() {
                 خدمة صفّ السيارات مجانية. تتوفّر حافلة توصيل من برج الفيصلية كل ٣٠ دقيقة ابتداءً من ٤:٣٠ م.
               </p>
             </div>
+        */}
 
             {/* زر الاتجاهات */}
             <motion.a
@@ -196,10 +196,10 @@ export default function VenueSection() {
           transition={{ duration: 0.8 }}
         >
           {[
-            { num: '٥٠٠+', label: 'طاقة استيعابيّة' },
-            { num: '٥★',   label: 'قاعة فاخرة'      },
-            { num: '٣',    label: 'صالات أفراح'     },
-            { num: '٢٤/٧', label: 'خدمة الكونسيرج'  },
+            { num: '500+', label: 'طاقة استيعابيّة' },
+            { num: '5★',   label: 'قاعة فاخرة'      },
+            { num: '3',    label: 'صالات أفراح'     },
+           /* { num: '24/7', label: 'خدمة الكونسيرج'  },*/
           ].map((item, i) => (
             <motion.div
               key={i}

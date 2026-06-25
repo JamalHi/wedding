@@ -35,7 +35,7 @@ function TimeUnit({ value, label }: { value: number; label: string }) {
       >
         {/* تأثير التدوير 3D */}
         <motion.div
-          key={display}
+          key={`digit-${display}`}
           initial={{ rotateX: -90, opacity: 0 }}
           animate={{ rotateX: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
@@ -61,7 +61,7 @@ function TimeUnit({ value, label }: { value: number; label: string }) {
         <div className="absolute bottom-2 left-2  w-1 h-1 rounded-full" style={{ background: '#f2c4ce', opacity: 0.4 }} />
 
         <motion.div
-          key={display}
+          key={`flash-${display}`}
           className="absolute inset-0 pointer-events-none"
           style={{ background: 'rgba(242,196,206,0.12)' }}
           initial={{ opacity: 1 }}
@@ -93,7 +93,7 @@ export default function CountdownTimer() {
   }, []);
 
   return (
-    <section className="py-16 md:py-24 relative" dir="rtl">
+    <section className="py-20 md:py-28 relative" dir="rtl">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{

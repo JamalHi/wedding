@@ -79,7 +79,7 @@ export default function GallerySection() {
   const next = () => setSelected(s => (s !== null ? (s + 1) % photos.length : null));
 
   return (
-    <section id="gallery" className="py-16 md:py-24 relative" dir="rtl">
+    <section id="gallery" className="py-20 md:py-28 relative" dir="rtl">
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         <SectionHeading eyebrow="ذكريات" title="معرض الصور" intro="لمحة من رحلتنا معاً" className="text-center mb-10 md:mb-14" />
 

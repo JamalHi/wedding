@@ -131,7 +131,7 @@ export default function Footer() {
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
         >
-          صُنع بكلّ محبّة • ٢٠٢٦
+          صُنع بكلّ محبّة • 2026
         </motion.p>
       </div>
     </footer>

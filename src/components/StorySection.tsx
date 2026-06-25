@@ -1,27 +1,27 @@
 import { motion } from 'framer-motion';
-import { Rose, Leaf } from './Rose';
+import { Rose } from './Rose';
 import { BookOpen, Gem, Sparkles } from 'lucide-react';
 import SectionHeading from './SectionHeading';
 
 const storyMilestones = [
   {
-    year: '٢٠٢٠',
+    year: '03-09-2025',
     title: 'أول لقاء',
-    description: 'التقت روحان في زاوية هادئة من مكتبة الجامعة. ابتسامة مشتركة على كتاب مستعار كانت بداية كل شيء.',
+    description: 'تحت سماءٍ مرصّعة بالنجوم، تلاقت نظرتان فكانت أول حروف قصةٍ لم تُكتب بعد.',
     Icon: BookOpen,
     variant: 'bloom' as const,
   },
   {
-    year: '٢٠٢٢',
+    year: '10-10-2025',
     title: 'ليلة الخطبة',
-    description: 'تحت سماء مرصّعة بالنجوم في الصحراء، ركع أحمد على ركبتيه وطرح السؤال الأهم... فكان الجواب: نعم.',
+    description: 'ليلةٌ لمع فيها الخاتم على الإصبع، وكان بريق العيون أصدق من بريق الذهب.',
     Icon: Gem,
     variant: 'side' as const,
   },
   {
-    year: '٢٠٢٦',
+    year: '10-10-2026',
     title: 'بداية الأبد',
-    description: 'بعد سنوات من الضحكات والمغامرات والأحلام المشتركة، حان الوقت ليبدآ رحلتهما الأعظم — معاً، إلى الأبد.',
+    description: 'ها هي اللحظة التي طال انتظارها: أن تتحوّل القصة إلى عهدٍ، والحب إلى رحلةٍ تدوم إلى الأبد.',
     Icon: Sparkles,
     variant: 'bud' as const,
   },
@@ -29,7 +29,7 @@ const storyMilestones = [
 
 export default function StorySection() {
   return (
-    <section id="story" className="py-16 md:py-24 relative overflow-hidden" dir="rtl">
+    <section id="story" className="py-20 md:py-28 relative overflow-hidden" dir="rtl">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -73,13 +73,13 @@ export default function StorySection() {
                   style={{ borderRadius: '20px' }}
                   whileHover={{ y: -6 }}
                 >
-                  <div className="flex justify-center mb-4">
+                  <div className="flex justify-center mb-3 md:mb-4">
                     <div className="relative" style={{ filter: 'drop-shadow(0 10px 20px rgba(194,99,122,0.3))' }}>
                       <Rose size={56} variant={item.variant} />
                     </div>
                   </div>
                   <p
-                    className="text-sm mb-2"
+                    className="text-xs sm:text-sm mb-1.5 md:mb-2"
                     style={{
                       fontFamily: 'Tajawal, sans-serif',
                       color: '#c2637a',
@@ -89,7 +89,7 @@ export default function StorySection() {
                     {item.year}
                   </p>
                   <h3
-                    className="text-2xl mb-3"
+                    className="text-xl sm:text-2xl mb-2 md:mb-3"
                     style={{
                       fontFamily: 'Amiri, serif',
                       color: '#f2c4ce',
@@ -98,7 +98,7 @@ export default function StorySection() {
                     {item.title}
                   </h3>
                   <p
-                    className="text-lg leading-relaxed italic"
+                    className="text-base sm:text-lg leading-relaxed italic mt-1 md:mt-2"
                     style={{
                       fontFamily: 'Scheherazade New, serif',
                       color: 'rgba(255,245,247,0.75)',
@@ -150,27 +150,28 @@ export default function StorySection() {
           />
 
           {/* أوراق على الزوايا */}
-          <div className="absolute -top-3 -right-3"><Leaf size={32} rotate={-30} opacity={0.6} /></div>
-          <div className="absolute -bottom-3 -left-3"><Leaf size={32} rotate={150} opacity={0.6} /></div>
+    {/*
+          <div className="absolute top-3 right-3"><Leaf size={32} rotate={-30} opacity={0.6} /></div>
+          <div className="absolute bottom-3 left-3"><Leaf size={32} rotate={150} opacity={0.6} /></div>
 
           <p
-            className="absolute -top-2 right-8 text-8xl"
+            className="absolute top-2 sm:top-3 right-6 sm:right-10 text-5xl sm:text-6xl md:text-7xl pointer-events-none"
             style={{ fontFamily: 'Amiri, serif', color: 'rgba(242,196,206,0.15)' }}
           >
             ❝
           </p>
           <p
-            className="text-2xl md:text-3xl relative px-12 italic"
+            className="text-2xl md:text-3xl relative px-10 sm:px-14 italic"
             style={{
               fontFamily: 'Scheherazade New, serif',
               color: 'rgba(255,245,247,0.9)',
               lineHeight: 2,
             }}
           >
-            أنتِ يومي وكلّ غدياتي
+              أنتِ يا من جعلتِ الأبد كلمةً تُشبه اسمكِ
           </p>
           <p
-            className="absolute -bottom-10 left-8 text-8xl"
+            className="absolute bottom-2 sm:bottom-3 left-6 sm:left-10 text-5xl sm:text-6xl md:text-7xl pointer-events-none"
             style={{ fontFamily: 'Amiri, serif', color: 'rgba(242,196,206,0.15)' }}
           >
             ❞
@@ -186,6 +187,7 @@ export default function StorySection() {
           >
             — جمال و سوار
           </p>
+    */}
         </motion.div>
       </div>
     </section>

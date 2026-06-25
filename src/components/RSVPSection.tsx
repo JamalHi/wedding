@@ -50,7 +50,7 @@ export default function RSVPSection() {
 
   if (status === 'success') {
     return (
-      <section id="rsvp" className="py-16 md:py-24" dir="rtl">
+      <section id="rsvp" className="py-20 md:py-28" dir="rtl">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
@@ -125,7 +125,7 @@ export default function RSVPSection() {
   }
 
   return (
-    <section id="rsvp" className="py-16 md:py-24 relative" dir="rtl">
+    <section id="rsvp" className="py-20 md:py-28 relative" dir="rtl">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{

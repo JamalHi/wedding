@@ -129,21 +129,6 @@ export default function HeroSection() {
         </motion.div>
       ))}
 
-      {/* الزخارف الخلفية: زجاج */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        style={{ y: yMid, opacity }}
-      >
-        <div
-          className="absolute top-12 left-1/2 -translate-x-1/2 w-[90vw] max-w-3xl h-[70vh] rounded-[40px]"
-          style={{
-            border: '1px solid rgba(242,196,206,0.08)',
-            background:
-              'linear-gradient(180deg, rgba(242,196,206,0.04), transparent 60%)',
-          }}
-        />
-      </motion.div>
-
       {/* المحتوى الرئيسي */}
       <motion.div
         className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto"
@@ -155,6 +140,16 @@ export default function HeroSection() {
           transformStyle: 'preserve-3d',
         }}
       >
+        {/* الزخارف الخلفية: زجاج — يتمدّد ليطابق حجم المحتوى الفعلي بدل ارتفاع ثابت */}
+        <div
+          className="absolute -inset-6 sm:-inset-10 md:-inset-14 rounded-[40px] pointer-events-none"
+          style={{
+            border: '1px solid rgba(242,196,206,0.08)',
+            background:
+              'linear-gradient(180deg, rgba(242,196,206,0.04), transparent 60%)',
+          }}
+        />
+
         {/* تمهيد */}
         <motion.p
           className="text-sm md:text-base mb-5"
@@ -294,7 +289,7 @@ export default function HeroSection() {
 
         {/* الأزرار */}
         <motion.div
-          className="flex flex-col sm:flex-row-reverse gap-4 justify-center mt-12"
+          className="flex flex-col sm:flex-row-reverse items-center gap-4 justify-center mt-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 2 }}
@@ -325,7 +320,7 @@ export default function HeroSection() {
                 '0 15px 35px -10px rgba(194,99,122,0.7), inset 0 1px 0 rgba(255,255,255,0.18)';
             }}
           >
-            <span className="relative z-10 flex items-center gap-2">
+            <span className="relative z-10 flex items-center justify-center gap-2">
               <HeartRose size={16} />
               تأكيد الحضور
             </span>
