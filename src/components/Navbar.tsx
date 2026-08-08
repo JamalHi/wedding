@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { Monogram, HeartRose } from './Rose';
+import { fetchSiteSettings, type SiteSettings } from '../lib/settings';
+import { formatDateShort } from '../lib/date';
 
 const navLinks = [
   { href: '#story',   label: 'قصتنا'     },
@@ -13,11 +15,16 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled,   setScrolled]   = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [settings,   setSettings]   = useState<SiteSettings | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    fetchSiteSettings().then(setSettings).catch(() => {});
   }, []);
 
   const scrollTo = (href: string) => {
@@ -46,18 +53,24 @@ export default function Navbar() {
       >
         {/* الشعار */}
         <div className="flex items-center gap-3">
-          <Monogram size={42} />
+          <Monogram
+            size={42}
+            letter1={settings?.groom_name?.[0]}
+            letter2={settings?.bride_name?.[0]}
+          />
           <div className="h-5 w-px hidden md:block" style={{ background: 'rgba(242,196,206,0.3)' }} />
-          <span
-            className="hidden md:block text-sm"
-            style={{
-              fontFamily: 'Tajawal, sans-serif',
-              color: 'rgba(242,196,206,0.7)',
-              letterSpacing: '0.1em',
-            }}
-          >
-            10 أوكتوبر 2026
-          </span>
+          {settings && (
+            <span
+              className="hidden md:block text-sm"
+              style={{
+                fontFamily: 'Tajawal, sans-serif',
+                color: 'rgba(242,196,206,0.7)',
+                letterSpacing: '0.1em',
+              }}
+            >
+              {formatDateShort(settings.wedding_datetime)}
+            </span>
+          )}
         </div>
 
         {/* روابط سطح المكتب */}
@@ -142,7 +155,11 @@ export default function Navbar() {
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <Monogram size={70} />
+                <Monogram
+                  size={70}
+                  letter1={settings?.groom_name?.[0]}
+                  letter2={settings?.bride_name?.[0]}
+                />
               </motion.div>
 
               {navLinks.map((link, i) => (

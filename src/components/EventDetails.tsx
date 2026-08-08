@@ -1,22 +1,46 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, MapPin, Music, Camera, Heart, Utensils } from 'lucide-react';
 import { Rose } from './Rose';
 import SectionHeading from './SectionHeading';
+import { fetchVenue, type Venue } from '../lib/venue';
+import { fetchSiteSettings, type SiteSettings } from '../lib/settings';
+import { formatDateWithWeekday } from '../lib/date';
 
-const events = [
-  { time: '5:00 م', title: 'استقبال الضيوف',       description: 'استقبال حارّ مع المرطّبات والموسيقى الحيّة', Icon: Music },
-  { time: '6:00 م', title: 'حفل عقد القران',        description: 'مراسم العقد المقدّس في القاعة الكبرى',     Icon: Heart },
-  { time: '7:00 م', title: 'جلسة تصوير تذكاريّة',  description: 'توثيق اللحظات الجميلة مع العروسين',         Icon: Camera },
-  { time: '8:00 م', title: 'عشاء وسهرة الاحتفال', description: 'عشاء فاخر يليه رقص واحتفال بهيج',          Icon: Utensils },
-];
-
-const details = [
-  { Icon: Calendar, label: 'التاريخ', value: 'السبت، 10 أوكتوبر 2026',   sub: 'سجّل الموعد في مفكّرتك'             },
-  { Icon: Clock,    label: 'التوقيت', value: '5:00 م - 10:00 م',         sub: 'الأبواب تُفتح الساعة 4:30 م'         },
-  { Icon: MapPin,   label: 'المكان',  value: 'القاعة الملكية',  sub: 'دمشق اتستراد المزة'         },
-];
+const PROGRAM_ICONS = [Music, Heart, Camera, Utensils] as const;
 
 export default function EventDetails() {
+  const [venue,    setVenue]    = useState<Venue | null>(null);
+  const [settings, setSettings] = useState<SiteSettings | null>(null);
+
+  useEffect(() => {
+    fetchVenue().then(setVenue).catch(() => {});
+    fetchSiteSettings().then(setSettings).catch(() => {});
+  }, []);
+
+  const details = [
+    {
+      Icon: Calendar, label: 'التاريخ',
+      value: settings ? formatDateWithWeekday(settings.wedding_datetime) : '',
+      sub: 'سجّل الموعد في مفكّرتك',
+    },
+    {
+      Icon: Clock, label: 'التوقيت',
+      value: settings?.ceremony_time_range ?? '',
+      sub: settings?.doors_open_note ?? '',
+    },
+    { Icon: MapPin, label: 'المكان', value: venue?.hall_name ?? '', sub: venue?.address ?? '' },
+  ];
+
+  const events = settings
+    ? [1, 2, 3, 4].map(i => ({
+        time:        settings[`program${i}_time` as keyof SiteSettings],
+        title:       settings[`program${i}_title` as keyof SiteSettings],
+        description: settings[`program${i}_description` as keyof SiteSettings],
+        Icon:        PROGRAM_ICONS[i - 1],
+      }))
+    : [];
+
   return (
     <section id="details" className="py-20 md:py-28 relative" dir="rtl">
       {/* خلفية وردية ناعمة */}

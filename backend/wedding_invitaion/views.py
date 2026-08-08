@@ -2,13 +2,13 @@
 from django.db.models import Count, Sum
 from django.db.models.functions import TruncDate
 from rest_framework import status
-from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Guest
-from .serializers import GuestSerializer
+from .models import Guest, Venue, SiteSettings
+from .serializers import GuestSerializer, VenueSerializer, SiteSettingsSerializer
 
 
 class GuestCreateView(CreateAPIView):
@@ -61,3 +61,33 @@ class StatsView(APIView):
             "dietary_requirements": dietary_requirements,
             "timeline": timeline,
         })
+
+
+class VenueDetailView(RetrieveUpdateAPIView):
+    """Public GET for the wedding site; PUT/PATCH restricted to authenticated admins."""
+
+    serializer_class = VenueSerializer
+    http_method_names = ["get", "put", "patch"]
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [AllowAny()]
+        return super().get_permissions()
+
+    def get_object(self):
+        return Venue.load()
+
+
+class SiteSettingsDetailView(RetrieveUpdateAPIView):
+    """Public GET for the wedding site; PUT/PATCH restricted to authenticated admins."""
+
+    serializer_class = SiteSettingsSerializer
+    http_method_names = ["get", "put", "patch"]
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [AllowAny()]
+        return super().get_permissions()
+
+    def get_object(self):
+        return SiteSettings.load()

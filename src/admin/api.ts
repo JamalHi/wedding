@@ -1,7 +1,12 @@
+import type { Venue } from '../lib/venue';
+import type { SiteSettings } from '../lib/settings';
+
 const API_URL = import.meta.env.VITE_API_URL as string;
 
 const ACCESS_KEY  = 'admin_access';
 const REFRESH_KEY = 'admin_refresh';
+
+export type { Venue, SiteSettings };
 
 export type Attendance = 'yes' | 'no' | 'maybe';
 
@@ -69,3 +74,19 @@ export async function login(username: string, password: string) {
 export const fetchStats  = () => apiFetch<Stats>('/api/stats/');
 export const fetchGuests = () => apiFetch<Guest[]>('/api/guests/');
 export const resetGuests = () => apiFetch<{ deleted: number }>('/api/guests/reset/', { method: 'POST' });
+
+export const fetchVenueAdmin = () => apiFetch<Venue>('/api/venue/');
+export const updateVenue = (data: Venue) =>
+  apiFetch<Venue>('/api/venue/', {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+
+export const fetchSettingsAdmin = () => apiFetch<SiteSettings>('/api/settings/');
+export const updateSettings = (data: SiteSettings) =>
+  apiFetch<SiteSettings>('/api/settings/', {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });

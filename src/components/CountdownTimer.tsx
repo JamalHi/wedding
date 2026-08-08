@@ -2,12 +2,11 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Rose, HeartRose } from './Rose';
 import SectionHeading from './SectionHeading';
+import { fetchSiteSettings } from '../lib/settings';
 
-const WEDDING_DATE = new Date('2026-10-10T18:00:00');
-
-function getTimeLeft() {
+function getTimeLeft(target: Date) {
   const now  = new Date();
-  const diff = WEDDING_DATE.getTime() - now.getTime();
+  const diff = target.getTime() - now.getTime();
   if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   return {
     days:    Math.floor(diff / (1000 * 60 * 60 * 24)),
@@ -84,13 +83,20 @@ function TimeUnit({ value, label }: { value: number; label: string }) {
   );
 }
 
+const DEFAULT_TARGET = new Date('2026-10-10T18:00:00');
+
 export default function CountdownTimer() {
-  const [time, setTime] = useState(getTimeLeft());
+  const [target, setTarget] = useState(DEFAULT_TARGET);
+  const [time, setTime] = useState(() => getTimeLeft(DEFAULT_TARGET));
 
   useEffect(() => {
-    const interval = setInterval(() => setTime(getTimeLeft()), 1000);
-    return () => clearInterval(interval);
+    fetchSiteSettings().then(s => setTarget(new Date(s.wedding_datetime))).catch(() => {});
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => setTime(getTimeLeft(target)), 1000);
+    return () => clearInterval(interval);
+  }, [target]);
 
   return (
     <section className="py-20 md:py-28 relative" dir="rtl">

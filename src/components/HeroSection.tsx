@@ -1,7 +1,8 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import gsap from 'gsap';
 import { Rose, Leaf, HeartRose } from './Rose';
+import { fetchSiteSettings, type SiteSettings } from '../lib/settings';
 // (الأسماء العربية تعرض كاملة، الأنيميشن على الكلمة لا الأحرف)
 
 /** ورود ثلاثية الأبعاد عائمة حول العنوان */
@@ -17,6 +18,11 @@ const FLOATING_ROSES = [
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef   = useRef<HTMLDivElement>(null);
+  const [settings, setSettings] = useState<SiteSettings | null>(null);
+
+  useEffect(() => {
+    fetchSiteSettings().then(setSettings).catch(() => {});
+  }, []);
 
   // tilt thoughtful interaction based on cursor (desktop only)
   const tiltX = useMotionValue(0);
@@ -189,7 +195,7 @@ export default function HeroSection() {
               transformOrigin: 'center bottom',
             }}
           >
-            جمال
+            {settings?.groom_name ?? 'جمال'}
           </div>
 
           <div
@@ -220,7 +226,7 @@ export default function HeroSection() {
               transformOrigin: 'center bottom',
             }}
           >
-            سوار
+            {settings?.bride_name ?? 'سوار'}
           </div>
         </div>
 
@@ -273,7 +279,7 @@ export default function HeroSection() {
               textShadow: '0 0 30px rgba(242,196,206,0.4)',
             }}
           >
-            السبت، العاشر من أوكتوبر
+            {settings?.hero_date_line ?? 'السبت، العاشر من أوكتوبر'}
           </p>
           <p
             className="text-sm"
@@ -283,7 +289,7 @@ export default function HeroSection() {
               letterSpacing: '0.3em',
             }}
           >
-            ألفان وستة وعشرون
+            {settings?.hero_year_line ?? 'ألفان وستة وعشرون'}
           </p>
         </motion.div>
 

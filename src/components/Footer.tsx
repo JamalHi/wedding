@@ -1,7 +1,19 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Rose, HeartRose, Monogram } from './Rose';
+import { fetchSiteSettings, type SiteSettings } from '../lib/settings';
+import { fetchVenue, type Venue } from '../lib/venue';
+import { formatDateShort } from '../lib/date';
 
 export default function Footer() {
+  const [settings, setSettings] = useState<SiteSettings | null>(null);
+  const [venue,    setVenue]    = useState<Venue | null>(null);
+
+  useEffect(() => {
+    fetchSiteSettings().then(setSettings).catch(() => {});
+    fetchVenue().then(setVenue).catch(() => {});
+  }, []);
+
   return (
     <footer className="py-12 md:py-16 relative overflow-hidden" dir="rtl">
       <div
@@ -39,7 +51,7 @@ export default function Footer() {
                 color: 'rgba(242,196,206,0.85)',
               }}
             >
-              جمال
+              {settings?.groom_name ?? 'جمال'}
             </span>
             <div className="flex flex-col items-center gap-1">
               <HeartRose size={20} />
@@ -53,7 +65,7 @@ export default function Footer() {
                 color: 'rgba(242,196,206,0.85)',
               }}
             >
-              سوار
+              {settings?.bride_name ?? 'سوار'}
             </span>
           </div>
 
@@ -64,7 +76,8 @@ export default function Footer() {
               color: 'rgba(242,196,206,0.6)',
             }}
           >
-            10 أوكتوبر 2026 • دمشق، اتستراد المزة
+            {settings ? formatDateShort(settings.wedding_datetime) : ''}
+            {venue?.address ? ` • ${venue.address}` : ''}
           </p>
 
           <div className="divider mb-8" />
@@ -77,7 +90,7 @@ export default function Footer() {
               lineHeight: 2.2,
             }}
           >
-            الزواج ليس اسماً؛ إنه فعلٌ. إنه الطريقة التي تُحبّ بها شريك حياتك كلّ يوم
+            {settings?.footer_quote ?? ''}
           </p>
 
           {/* الهاشتاغ */}
@@ -109,13 +122,17 @@ export default function Footer() {
                 fontWeight: 600,
               }}
             >
-              #جمال_وسوار_2026
+              {settings?.hashtag ?? ''}
             </span>
           </div>
 
           {/* المونوغرام */}
           <div className="flex justify-center mt-10">
-            <Monogram size={70} />
+            <Monogram
+              size={70}
+              letter1={settings?.groom_name?.[0]}
+              letter2={settings?.bride_name?.[0]}
+            />
           </div>
         </motion.div>
 

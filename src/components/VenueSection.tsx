@@ -1,10 +1,29 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Globe, Navigation } from 'lucide-react';
 import SectionHeading from './SectionHeading';
+import { fetchVenue, type Venue } from '../lib/venue';
 
 export default function VenueSection() {
-  const mapSrc =
-    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.6504858736247!2d46.67255391499984!3d24.68773398413143!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489399%3A0xba974d1c98e79fd5!2sKing%20Abdullah%20Road%2C%20Riyadh!5e0!3m2!1sar!2ssa!4v1620000000000!5m2!1sar!2ssa';
+  const [venue, setVenue] = useState<Venue | null>(null);
+
+  useEffect(() => {
+    fetchVenue().then(setVenue).catch(() => {});
+  }, []);
+
+  if (!venue) return null;
+
+  const contactItems = [
+    { Icon: MapPin, label: 'العنوان', value: venue.address },
+    { Icon: Phone,  label: 'الهاتف',  value: venue.phone },
+    { Icon: Globe,  label: 'الموقع',  value: venue.website },
+  ];
+
+  const stats = [
+    { num: venue.stat1_value, label: venue.stat1_label },
+    { num: venue.stat2_value, label: venue.stat2_label },
+    { num: venue.stat3_value, label: venue.stat3_label },
+  ];
 
   return (
     <section id="venue" className="py-20 md:py-28 relative" dir="rtl">
@@ -32,7 +51,7 @@ export default function VenueSection() {
           >
             <div className="relative" style={{ paddingTop: '65%' }}>
               <iframe
-                src={mapSrc}
+                src={venue.map_embed_url}
                 className="absolute inset-0 w-full h-full"
                 style={{
                   border: 0,
@@ -69,13 +88,13 @@ export default function VenueSection() {
                   backgroundClip: 'text',
                 }}
               >
-                القاعة الملكية
+                {venue.hall_name}
               </h3>
               <p
                 className="text-xl italic"
                 style={{ fontFamily: 'Scheherazade New, serif', color: '#c2637a' }}
               >
-                أفخم قاعات المناسبات في المدينة
+                {venue.tagline}
               </p>
             </div>
 
@@ -85,11 +104,7 @@ export default function VenueSection() {
             />
 
             <div className="space-y-4">
-              {[
-                { Icon: MapPin, label: 'العنوان', value: ' دمشق، اتستراد المزة ' },
-                { Icon: Phone,  label: 'الهاتف',  value: '‎+966 11 XXX XXXX' },
-                { Icon: Globe,  label: 'الموقع',  value: 'rosepalace-riyadh.com' },
-              ].map((item, i) => (
+              {contactItems.map((item, i) => (
                 <motion.div
                   key={i}
                   className="flex gap-4 items-start group"
@@ -164,7 +179,7 @@ export default function VenueSection() {
 
             {/* زر الاتجاهات */}
             <motion.a
-              href="https://maps.google.com/?q=King+Abdullah+Road+Riyadh"
+              href={venue.directions_url}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 w-full justify-center py-4 cursor-pointer transition-all"
@@ -195,12 +210,7 @@ export default function VenueSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          {[
-            { num: '500+', label: 'طاقة استيعابيّة' },
-            { num: '5★',   label: 'قاعة فاخرة'      },
-            { num: '3',    label: 'صالات أفراح'     },
-           /* { num: '24/7', label: 'خدمة الكونسيرج'  },*/
-          ].map((item, i) => (
+          {stats.map((item, i) => (
             <motion.div
               key={i}
               className="text-center p-5 glass card-hover"

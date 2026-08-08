@@ -1,33 +1,32 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Rose } from './Rose';
 import { BookOpen, Gem, Sparkles } from 'lucide-react';
 import SectionHeading from './SectionHeading';
+import { fetchSiteSettings, type SiteSettings } from '../lib/settings';
 
-const storyMilestones = [
-  {
-    year: '03-09-2025',
-    title: 'أول لقاء',
-    description: 'تحت سماءٍ مرصّعة بالنجوم، تلاقت نظرتان فكانت أول حروف قصةٍ لم تُكتب بعد.',
-    Icon: BookOpen,
-    variant: 'bloom' as const,
-  },
-  {
-    year: '10-10-2025',
-    title: 'ليلة الخطبة',
-    description: 'ليلةٌ لمع فيها الخاتم على الإصبع، وكان بريق العيون أصدق من بريق الذهب.',
-    Icon: Gem,
-    variant: 'side' as const,
-  },
-  {
-    year: '10-10-2026',
-    title: 'بداية الأبد',
-    description: 'ها هي اللحظة التي طال انتظارها: أن تتحوّل القصة إلى عهدٍ، والحب إلى رحلةٍ تدوم إلى الأبد.',
-    Icon: Sparkles,
-    variant: 'bud' as const,
-  },
+const MILESTONE_META = [
+  { Icon: BookOpen, variant: 'bloom' as const },
+  { Icon: Gem,       variant: 'side'  as const },
+  { Icon: Sparkles,  variant: 'bud'   as const },
 ];
 
 export default function StorySection() {
+  const [settings, setSettings] = useState<SiteSettings | null>(null);
+
+  useEffect(() => {
+    fetchSiteSettings().then(setSettings).catch(() => {});
+  }, []);
+
+  const storyMilestones = settings
+    ? [1, 2, 3].map(i => ({
+        year:        settings[`milestone${i}_date` as keyof SiteSettings],
+        title:       settings[`milestone${i}_title` as keyof SiteSettings],
+        description: settings[`milestone${i}_description` as keyof SiteSettings],
+        ...MILESTONE_META[i - 1],
+      }))
+    : [];
+
   return (
     <section id="story" className="py-20 md:py-28 relative overflow-hidden" dir="rtl">
       <div
@@ -42,7 +41,7 @@ export default function StorySection() {
         <SectionHeading
           eyebrow="قصة حبّنا"
           title="كيف بدأت القصة"
-          intro="كل قصة حبٍّ جميلة، لكن قصتنا هي المفضّلة لدينا"
+          intro={settings?.story_intro ?? ''}
         />
 
         {/* الخط الزمني */}
