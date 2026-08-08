@@ -40,8 +40,18 @@ export default function RSVPSection() {
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
     setErrors({});
     setStatus('submitting');
-    await new Promise(r => setTimeout(r, 1800));
-    setStatus('success');
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/guest/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, guests: Number(form.guests) }),
+      });
+      if (!res.ok) throw new Error('Request failed');
+      setStatus('success');
+    } catch {
+      setStatus('error');
+    }
   };
 
   const set = (field: keyof FormData) =>
@@ -398,6 +408,12 @@ export default function RSVPSection() {
                 }}
               />
             </div>
+
+            {status === 'error' && (
+              <p className="text-sm text-center" style={{ color: '#ff8aa5', fontFamily: 'Tajawal, sans-serif' }}>
+                تعذّر إرسال الرد، يرجى المحاولة مرة أخرى
+              </p>
+            )}
 
             {/* زر الإرسال */}
             <motion.button

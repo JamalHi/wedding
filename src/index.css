@@ -2,12 +2,6 @@
 
 @import "tailwindcss";
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 :root {
   /* Rose palette */
   --rose-50:   #fdf5f7;
