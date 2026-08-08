@@ -4,11 +4,10 @@ import { Menu, X } from 'lucide-react';
 import { Monogram, HeartRose } from './Rose';
 
 const navLinks = [
-  { href: '#story',   label: 'قصتنا'        },
-  { href: '#details', label: 'التفاصيل'    },
-  { href: '#gallery', label: 'الصور'        },
-  { href: '#venue',   label: 'المكان'       },
-  { href: '#rsvp',    label: 'تأكيد الحضور' },
+  { href: '#story',   label: 'قصتنا'     },
+  { href: '#details', label: 'التفاصيل' },
+  { href: '#gallery', label: 'الصور'     },
+  { href: '#venue',   label: 'المكان'    },
 ];
 
 export default function Navbar() {
@@ -164,6 +163,26 @@ export default function Navbar() {
                   {link.label}
                 </motion.button>
               ))}
+
+              <motion.button
+                onClick={() => scrollTo('#rsvp')}
+                className="px-6 py-3 cursor-pointer flex items-center gap-2"
+                style={{
+                  background: 'linear-gradient(135deg, #c2637a, #7b3a4c)',
+                  color: '#fff5f7',
+                  borderRadius: '999px',
+                  fontFamily: 'Tajawal, sans-serif',
+                  fontSize: '1rem',
+                  letterSpacing: '0.1em',
+                  boxShadow: '0 8px 20px -8px rgba(194,99,122,0.7), inset 0 1px 0 rgba(255,255,255,0.18)',
+                }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25 + navLinks.length * 0.08 }}
+              >
+                <HeartRose size={16} />
+                تأكيد الحضور
+              </motion.button>
             </div>
           </motion.div>
         )}

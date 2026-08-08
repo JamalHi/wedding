@@ -210,7 +210,7 @@ export function HeartRose({ size = 32 }: { size?: number }) {
 }
 
 /** مونوغرام (الحرف الأول للعروسين داخل إطار وردي) */
-export function Monogram({ letter1 = 'أ', letter2 = 'ف', size = 110 }: { letter1?: string; letter2?: string; size?: number }) {
+export function Monogram({ letter1 = 'ج', letter2 = 'س', size = 110 }: { letter1?: string; letter2?: string; size?: number }) {
   return (
     <div
       className="relative inline-flex items-center justify-center"
@@ -231,10 +231,26 @@ export function Monogram({ letter1 = 'أ', letter2 = 'ف', size = 110 }: { lette
           fontFamily: 'Amiri, serif',
           color: '#f2c4ce',
           letterSpacing: '0.05em',
+          lineHeight: 1,
+          display: 'inline-flex',
+          alignItems: 'baseline',
         }}
       >
         {letter1}
-        <span style={{ color: '#c2637a', margin: '0 6px', fontStyle: 'italic', fontFamily: 'Scheherazade New, serif' }}>و</span>
+        <span
+          aria-hidden="true"
+          style={{
+            color: '#c2637a',
+            margin: '0 4px',
+            fontFamily: 'Amiri, serif',
+            fontWeight: 700,
+            fontSize: '0.85em',
+            transform: 'translateY(-0.12em)',
+            display: 'inline-block',
+          }}
+        >
+          &
+        </span>
         {letter2}
       </span>
     </div>
