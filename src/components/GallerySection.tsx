@@ -1,23 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Rose, HeartRose } from './Rose';
 import SectionHeading from './SectionHeading';
+import { fetchGalleryImages, type GalleryImage } from '../lib/gallery';
 
-const photos = [
-  { id: 1, image: 'images/gallery/1.JPG', gradient: 'from-[#c2637a]/60 to-[#7b3a4c]/30', label: 'يوم الخطبة',          variant: 'bloom' as const, aspect: 'tall'   },
-  { id: 2, image: 'images/gallery/2.JPG', gradient: 'from-[#180d10]/50 to-[#c2637a]/30',  label: 'رحلتنا الأولى',       variant: 'side'  as const, aspect: 'square'   },
-  //{ id: 3, image: 'images/gallery/3.jpg', gradient: 'from-[#f2c4ce]/30 to-[#c2637a]/40',  label: 'ليلة العرض',          variant: 'bud'   as const, aspect: 'square' },
-  //{ id: 4, image: 'images/gallery/4.jpg', gradient: 'from-[#7b3a4c]/40 to-[#180d10]/40',  label: 'صورة العائلة',        variant: 'bloom' as const, aspect: 'square' },
-  //{ id: 5, image: 'images/gallery/5.jpg', gradient: 'from-[#c2637a]/50 to-[#f2c4ce]/20',  label: 'جلسة ما قبل الزفاف', variant: 'side'  as const, aspect: 'wide'   },
-  //{ id: 6, image: 'images/gallery/6.jpg', gradient: 'from-[#4d2330]/50 to-[#c2637a]/30',  label: 'لحظات سعيدة',        variant: 'bloom' as const, aspect: 'tall'   },
-];
+const API_URL = import.meta.env.VITE_API_URL as string;
+
+function imageUrl(path: string) {
+  return path.startsWith('http') ? path : `${API_URL}${path}`;
+}
 
 function PhotoCard({ photo, onClick, index }: {
-  photo: typeof photos[0]; onClick: () => void; index: number;
+  photo: GalleryImage; onClick: () => void; index: number;
 }) {
   const [imgError, setImgError] = useState(false);
-  const showImage = Boolean(photo.image) && !imgError;
 
   return (
     <motion.div
@@ -36,33 +33,33 @@ function PhotoCard({ photo, onClick, index }: {
       whileHover={{ scale: 1.03, y: -4 }}
       onClick={onClick}
     >
-      {showImage ? (
+      {!imgError ? (
         <img
-          src={`${import.meta.env.BASE_URL}${photo.image}`}
+          src={imageUrl(photo.image)}
           alt={photo.label}
           loading="lazy"
           className="absolute inset-0 w-full h-full object-cover"
           onError={() => setImgError(true)}
         />
       ) : (
-        <div className={`absolute inset-0 bg-gradient-to-br ${photo.gradient}`} />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#c2637a]/60 to-[#7b3a4c]/30" />
       )}
 
       {/* الوردة والتسمية */}
       <div
         className="absolute inset-0 flex flex-col items-center justify-center"
-        style={showImage ? { background: 'linear-gradient(to top, rgba(24,13,16,0.75), rgba(24,13,16,0) 45%)' } : undefined}
+        style={!imgError ? { background: 'linear-gradient(to top, rgba(24,13,16,0.75), rgba(24,13,16,0) 45%)' } : undefined}
       >
-        {!showImage && (
+        {imgError && (
           <motion.div
             animate={{ rotate: [0, 5, -5, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
             style={{ filter: 'drop-shadow(0 8px 15px rgba(24,13,16,0.5))' }}
           >
-            <Rose size={photo.aspect === 'tall' ? 90 : 60} variant={photo.variant} />
+            <Rose size={photo.aspect === 'tall' ? 90 : 60} variant="bloom" />
           </motion.div>
         )}
-        <div className={showImage ? 'mt-auto mb-4 flex flex-col items-center' : 'contents'}>
+        <div className={!imgError ? 'mt-auto mb-4 flex flex-col items-center' : 'contents'}>
           <div className="h-px w-12 mt-4" style={{ background: 'rgba(242,196,206,0.5)' }} />
           <p
             className="text-sm mt-3 italic"
@@ -92,27 +89,26 @@ function PhotoCard({ photo, onClick, index }: {
   );
 }
 
-function LightboxPhoto({ photo }: { photo: typeof photos[0] }) {
+function LightboxPhoto({ photo }: { photo: GalleryImage }) {
   const [imgError, setImgError] = useState(false);
-  const showImage = Boolean(photo.image) && !imgError;
 
   return (
     <>
-      {showImage ? (
+      {!imgError ? (
         <img
-          src={`${import.meta.env.BASE_URL}${photo.image}`}
+          src={imageUrl(photo.image)}
           alt={photo.label}
           className="absolute inset-0 w-full h-full object-cover"
           onError={() => setImgError(true)}
         />
       ) : (
-        <div className={`absolute inset-0 bg-gradient-to-br ${photo.gradient}`} />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#c2637a]/60 to-[#7b3a4c]/30" />
       )}
       <div
         className="absolute inset-0 flex flex-col items-center justify-center gap-4"
-        style={showImage ? { background: 'linear-gradient(to top, rgba(24,13,16,0.85), rgba(24,13,16,0) 40%)', justifyContent: 'flex-end', paddingBottom: '1.5rem' } : undefined}
+        style={!imgError ? { background: 'linear-gradient(to top, rgba(24,13,16,0.85), rgba(24,13,16,0) 40%)', justifyContent: 'flex-end', paddingBottom: '1.5rem' } : undefined}
       >
-        {!showImage && <Rose size={140} variant={photo.variant} glow />}
+        {imgError && <Rose size={140} variant="bloom" glow />}
         <div className="h-px w-16 mt-2" style={{ background: 'rgba(242,196,206,0.5)' }} />
         <p
           className="text-3xl"
@@ -130,10 +126,17 @@ function LightboxPhoto({ photo }: { photo: typeof photos[0] }) {
 }
 
 export default function GallerySection() {
+  const [photos,   setPhotos]   = useState<GalleryImage[]>([]);
   const [selected, setSelected] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetchGalleryImages().then(setPhotos).catch(() => {});
+  }, []);
 
   const prev = () => setSelected(s => (s !== null ? (s - 1 + photos.length) % photos.length : null));
   const next = () => setSelected(s => (s !== null ? (s + 1) % photos.length : null));
+
+  if (photos.length === 0) return null;
 
   return (
     <section id="gallery" className="py-20 md:py-28 relative" dir="rtl">

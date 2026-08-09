@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from wedding_invitaion.models import Guest, Venue, SiteSettings
+from wedding_invitaion.models import Guest, Venue, SiteSettings, GalleryImage, SiteMusic
 
 # Register your models here.
 
@@ -19,3 +19,14 @@ class VenueAdmin(admin.ModelAdmin):
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(admin.ModelAdmin):
     list_display = ("groom_name", "bride_name", "wedding_datetime", "updated_at")
+
+
+@admin.register(GalleryImage)
+class GalleryImageAdmin(admin.ModelAdmin):
+    list_display = ("label", "aspect", "order", "created_at")
+    list_editable = ("order",)
+
+
+@admin.register(SiteMusic)
+class SiteMusicAdmin(admin.ModelAdmin):
+    list_display = ("audio_file", "updated_at")

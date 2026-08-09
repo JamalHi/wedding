@@ -1,14 +1,25 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Music2 } from 'lucide-react';
+import { fetchSiteMusic } from '../lib/music';
+
+const DEFAULT_SRC = `${import.meta.env.BASE_URL}audio/wedding.mp3`;
 
 /**
- * زر موسيقى عائم. ضع ملف الموسيقى في public/audio/wedding-theme.mp3
+ * زر موسيقى عائم. يستخدم الملف المرفوع من لوحة التحكم إن وُجد،
+ * وإلا يعود للملف الافتراضي في public/audio/wedding.mp3
  * (المتصفحات تمنع التشغيل التلقائي بصوت، لذا التشغيل يبدأ فقط بضغطة المستخدم على الزر)
  */
 export default function MusicPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
+  const [src, setSrc] = useState(DEFAULT_SRC);
+
+  useEffect(() => {
+    fetchSiteMusic().then(m => {
+      if (m.audio_file) setSrc(m.audio_file);
+    }).catch(() => {});
+  }, []);
 
   const toggle = () => {
     const audio = audioRef.current;
@@ -23,7 +34,7 @@ export default function MusicPlayer() {
 
   return (
     <>
-      <audio ref={audioRef} src={`${import.meta.env.BASE_URL}audio/wedding.mp3`} loop preload="none" />
+      <audio ref={audioRef} src={src} loop preload="none" />
       <motion.button
         onClick={toggle}
         aria-label={playing ? 'إيقاف الموسيقى' : 'تشغيل الموسيقى'}

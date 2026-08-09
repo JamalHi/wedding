@@ -56,6 +56,38 @@ class Venue(models.Model):
         return obj
 
 
+class SiteMusic(models.Model):
+    """Editable background-music file. Singleton: always pk=1."""
+
+    audio_file = models.FileField(upload_to="music/", blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        pass
+
+    @classmethod
+    def load(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
+
+
+class GalleryImage(models.Model):
+    ASPECT_CHOICES = [("square", "Square"), ("tall", "Tall"), ("wide", "Wide")]
+
+    image = models.ImageField(upload_to="gallery/")
+    label = models.CharField(max_length=100, blank=True)
+    aspect = models.CharField(max_length=10, choices=ASPECT_CHOICES, default="square")
+    order = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["order", "id"]
+
+
 class SiteSettings(models.Model):
     """Editable couple/date/story/program text shown across the public site. Singleton: always pk=1."""
 

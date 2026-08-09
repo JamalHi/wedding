@@ -2,13 +2,16 @@
 from django.db.models import Count, Sum
 from django.db.models.functions import TruncDate
 from rest_framework import status
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, ListCreateAPIView, RetrieveUpdateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Guest, Venue, SiteSettings
-from .serializers import GuestSerializer, VenueSerializer, SiteSettingsSerializer
+from .models import Guest, Venue, SiteSettings, GalleryImage, SiteMusic
+from .serializers import (
+    GuestSerializer, VenueSerializer, SiteSettingsSerializer, GalleryImageSerializer, SiteMusicSerializer,
+)
 
 
 class GuestCreateView(CreateAPIView):
@@ -91,3 +94,40 @@ class SiteSettingsDetailView(RetrieveUpdateAPIView):
 
     def get_object(self):
         return SiteSettings.load()
+
+
+class GalleryImageListCreateView(ListCreateAPIView):
+    """Public GET (ordered list) for the wedding site; POST (upload) restricted to authenticated admins."""
+
+    queryset = GalleryImage.objects.all()
+    serializer_class = GalleryImageSerializer
+    parser_classes = [MultiPartParser, FormParser]
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [AllowAny()]
+        return super().get_permissions()
+
+
+class GalleryImageDetailView(RetrieveUpdateDestroyAPIView):
+    """Protected: edit (label/aspect/order) or delete a single gallery image."""
+
+    queryset = GalleryImage.objects.all()
+    serializer_class = GalleryImageSerializer
+    parser_classes = [MultiPartParser, FormParser]
+
+
+class SiteMusicDetailView(RetrieveUpdateAPIView):
+    """Public GET for the wedding site; PUT/PATCH (file upload) restricted to authenticated admins."""
+
+    serializer_class = SiteMusicSerializer
+    parser_classes = [MultiPartParser, FormParser]
+    http_method_names = ["get", "put", "patch"]
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [AllowAny()]
+        return super().get_permissions()
+
+    def get_object(self):
+        return SiteMusic.load()

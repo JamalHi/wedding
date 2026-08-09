@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import {
-  LogOut, Users, Check, X, HelpCircle, Search, Download, RefreshCw, Trash2, AlertTriangle,
+  Users, Check, X, HelpCircle, Search, Download, RefreshCw, Trash2, AlertTriangle,
 } from 'lucide-react';
 import {
   ResponsiveContainer, PieChart, Pie, Cell, Legend, Tooltip,
@@ -238,10 +238,6 @@ export default function Dashboard({ onAuthError }: { onAuthError: () => void }) 
       .filter(d => d.value > 0);
   }, [stats]);
 
-  const logout = () => {
-    onAuthError();
-  };
-
   return (
     <div dir="rtl" className="min-h-screen px-4 sm:px-8 py-10 md:py-16" style={{
       background: 'radial-gradient(ellipse at 20% 0%, rgba(194,99,122,0.14), transparent 50%), radial-gradient(ellipse at 80% 100%, rgba(242,196,206,0.08), transparent 55%), var(--noir)',
@@ -253,26 +249,14 @@ export default function Dashboard({ onAuthError }: { onAuthError: () => void }) 
             <h1 className="text-2xl md:text-3xl" style={{ fontFamily: 'Amiri, serif', color: INK }}>لوحة إحصائيات الحضور</h1>
             <p className="text-sm" style={{ fontFamily: 'Tajawal, sans-serif', color: INK_MUTED }}>نظرة شاملة على ردود الدعوة</p>
           </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={load}
-              className="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer"
-              style={{ border: '1px solid rgba(242,196,206,0.25)', color: INK }}
-              title="تحديث"
-            >
-              <RefreshCw size={16} />
-            </button>
-            <button
-              onClick={logout}
-              className="flex items-center gap-2 px-4 py-2.5 text-sm cursor-pointer"
-              style={{
-                background: 'rgba(242,196,206,0.06)', border: '1px solid rgba(242,196,206,0.2)',
-                borderRadius: '999px', color: INK, fontFamily: 'Tajawal, sans-serif',
-              }}
-            >
-              <LogOut size={14} /> خروج
-            </button>
-          </div>
+          <button
+            onClick={load}
+            className="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer"
+            style={{ border: '1px solid rgba(242,196,206,0.25)', color: INK }}
+            title="تحديث"
+          >
+            <RefreshCw size={16} />
+          </button>
         </div>
 
         {loading && (
