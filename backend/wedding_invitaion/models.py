@@ -94,6 +94,15 @@ class SiteSettings(models.Model):
     # الأسماء
     groom_name = models.CharField(max_length=50, default="جمال")
     bride_name = models.CharField(max_length=50, default="سوار")
+    groom_father_name = models.CharField(max_length=100, blank=True, default="")
+    bride_father_name = models.CharField(max_length=100, blank=True, default="")
+
+    # الآية القرآنية في البطاقة الرئيسية
+    hero_quran_verse = models.CharField(
+        max_length=300, blank=True,
+        default="وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ مِنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً",
+    )
+    hero_quran_reference = models.CharField(max_length=50, blank=True, default="سورة الروم - الآية 21")
 
     # التاريخ والوقت (wedding_datetime هو المصدر الوحيد المعتمد للعدّ التنازلي وتنسيقات التاريخ الرقمية)
     wedding_datetime = models.DateTimeField(default=datetime(2026, 10, 10, 18, 0, 0, tzinfo=dt_timezone.utc))

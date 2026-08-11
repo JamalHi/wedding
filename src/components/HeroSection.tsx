@@ -156,6 +156,31 @@ export default function HeroSection() {
           }}
         />
 
+        {/* الآية القرآنية */}
+        {settings?.hero_quran_verse && (
+          <motion.div
+            className="mb-6"
+            initial={{ opacity: 0, y: -15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.1 }}
+          >
+            <p
+              className="text-base md:text-lg italic max-w-xl mx-auto"
+              style={{ fontFamily: 'Scheherazade New, serif', color: 'rgba(255,245,247,0.75)', lineHeight: 2 }}
+            >
+              ﴿ {settings.hero_quran_verse} ﴾
+            </p>
+            {settings.hero_quran_reference && (
+              <p
+                className="text-xs mt-2"
+                style={{ fontFamily: 'Tajawal, sans-serif', color: 'rgba(242,196,206,0.5)', letterSpacing: '0.2em' }}
+              >
+                {settings.hero_quran_reference}
+              </p>
+            )}
+          </motion.div>
+        )}
+
         {/* تمهيد */}
         <motion.p
           className="text-sm md:text-base mb-5"
@@ -170,6 +195,21 @@ export default function HeroSection() {
         >
           بحضور ذويهما الكرام
         </motion.p>
+
+        {/* أسماء العائلتين */}
+        {(settings?.groom_father_name || settings?.bride_father_name) && (
+          <motion.p
+            className="text-sm md:text-base mb-6"
+            style={{ fontFamily: 'Tajawal, sans-serif', color: 'rgba(242,196,206,0.65)', letterSpacing: '0.05em' }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4 }}
+          >
+            {settings.groom_father_name && `نجل السيد ${settings.groom_father_name}`}
+            {settings.groom_father_name && settings.bride_father_name && '   •   '}
+            {settings.bride_father_name && `نجلة السيد ${settings.bride_father_name}`}
+          </motion.p>
+        )}
 
         {/* خط زخرفي */}
         <motion.div

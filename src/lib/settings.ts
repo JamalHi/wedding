@@ -3,6 +3,11 @@ const API_URL = import.meta.env.VITE_API_URL as string;
 export interface SiteSettings {
   groom_name: string;
   bride_name: string;
+  groom_father_name: string;
+  bride_father_name: string;
+
+  hero_quran_verse: string;
+  hero_quran_reference: string;
 
   wedding_datetime: string;
   hero_date_line: string;

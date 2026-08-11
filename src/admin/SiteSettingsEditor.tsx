@@ -12,6 +12,15 @@ const FIELD_GROUPS: { title: string; fields: { key: keyof SiteSettings; label: s
     fields: [
       { key: 'groom_name', label: 'اسم العريس' },
       { key: 'bride_name', label: 'اسم العروس' },
+      { key: 'groom_father_name', label: 'اسم والد العريس' },
+      { key: 'bride_father_name', label: 'اسم والد العروس' },
+    ],
+  },
+  {
+    title: 'البطاقة الرئيسية',
+    fields: [
+      { key: 'hero_quran_verse', label: 'الآية القرآنية', multiline: true },
+      { key: 'hero_quran_reference', label: 'مرجع الآية (السورة والرقم)' },
     ],
   },
   {
