@@ -118,11 +118,11 @@ class GalleryImageDetailView(RetrieveUpdateDestroyAPIView):
 
 
 class SiteMusicDetailView(RetrieveUpdateAPIView):
-    """Public GET for the wedding site; PUT/PATCH (file upload) restricted to authenticated admins."""
+    """Public GET for the wedding site; PUT/PATCH (file upload) and DELETE (clear file) restricted to authenticated admins."""
 
     serializer_class = SiteMusicSerializer
     parser_classes = [MultiPartParser, FormParser]
-    http_method_names = ["get", "put", "patch"]
+    http_method_names = ["get", "put", "patch", "delete"]
 
     def get_permissions(self):
         if self.request.method == "GET":
@@ -131,3 +131,11 @@ class SiteMusicDetailView(RetrieveUpdateAPIView):
 
     def get_object(self):
         return SiteMusic.load()
+
+    def delete(self, request, *args, **kwargs):
+        music = self.get_object()
+        if music.audio_file:
+            music.audio_file.delete(save=False)
+        music.audio_file = None
+        music.save()
+        return Response(self.get_serializer(music).data)

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Upload, Music2 } from 'lucide-react';
-import { AuthError, fetchMusicAdmin, uploadMusic, type SiteMusic } from './api';
+import { Upload, Music2, Trash2 } from 'lucide-react';
+import { AuthError, fetchMusicAdmin, uploadMusic, deleteMusic, type SiteMusic } from './api';
 
 const INK       = 'var(--cream)';
 const INK_MUTED = 'var(--muted)';
@@ -12,6 +12,7 @@ export default function MusicEditor({ onAuthError }: { onAuthError: () => void }
   const [errorMsg, setErrorMsg] = useState('');
   const [file,      setFile]      = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [deleting,  setDeleting]  = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const load = async () => {
@@ -48,6 +49,20 @@ export default function MusicEditor({ onAuthError }: { onAuthError: () => void }
     }
   };
 
+  const handleDelete = async () => {
+    if (!confirm('حذف الملف الحالي والعودة للموسيقى الافتراضية؟')) return;
+    setDeleting(true);
+    setErrorMsg('');
+    try {
+      setMusic(await deleteMusic());
+    } catch (err) {
+      if (err instanceof AuthError) { onAuthError(); return; }
+      setErrorMsg('تعذّر حذف الملف');
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   if (loading) {
     return <p className="text-center py-16" style={{ color: INK_MUTED, fontFamily: 'Tajawal, sans-serif' }}>جارٍ التحميل...</p>;
   }
@@ -62,7 +77,21 @@ export default function MusicEditor({ onAuthError }: { onAuthError: () => void }
           الموسيقى الحالية
         </h2>
         {music?.audio_file ? (
-          <audio controls src={music.audio_file} className="w-full" style={{ borderRadius: '10px' }} />
+          <div className="flex items-center gap-4">
+            <audio controls src={music.audio_file} className="flex-1 min-w-0" style={{ borderRadius: '10px' }} />
+            <button
+              onClick={handleDelete}
+              disabled={deleting}
+              className="flex items-center gap-1.5 px-3.5 py-2 text-xs cursor-pointer shrink-0"
+              style={{
+                fontFamily: 'Tajawal, sans-serif', borderRadius: '999px',
+                border: '1px solid rgba(208,59,59,0.35)', color: '#e88a8a',
+                opacity: deleting ? 0.6 : 1,
+              }}
+            >
+              <Trash2 size={13} /> {deleting ? 'جارٍ الحذف...' : 'حذف'}
+            </button>
+          </div>
         ) : (
           <div className="flex items-center gap-3" style={{ color: INK_MUTED, fontFamily: 'Tajawal, sans-serif' }}>
             <Music2 size={18} />

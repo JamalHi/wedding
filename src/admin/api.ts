@@ -119,3 +119,4 @@ export const uploadMusic = (file: File) => {
   form.append('audio_file', file);
   return apiFetch<SiteMusic>('/api/music/', { method: 'PATCH', body: form });
 };
+export const deleteMusic = () => apiFetch<SiteMusic>('/api/music/', { method: 'DELETE' });
