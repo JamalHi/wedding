@@ -45,10 +45,6 @@ class StatsView(APIView):
         }
         total_attendees = qs.filter(attendance="yes").aggregate(total=Sum("guests"))["total"] or 0
 
-        dietary_requirements = list(
-            qs.exclude(dietary="").values("name", "dietary")
-        )
-
         timeline_qs = (
             qs.annotate(day=TruncDate("created_at"))
             .values("day")
@@ -61,7 +57,6 @@ class StatsView(APIView):
             "total_responses": qs.count(),
             "counts": counts,
             "total_attendees": total_attendees,
-            "dietary_requirements": dietary_requirements,
             "timeline": timeline,
         })
 

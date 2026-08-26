@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Rose, HeartRose } from './Rose';
 import SectionHeading from './SectionHeading';
+import SectionDivider from './SectionDivider';
 import { fetchGalleryImages, type GalleryImage } from '../lib/gallery';
 
 const API_URL = import.meta.env.VITE_API_URL as string;
@@ -139,7 +140,9 @@ export default function GallerySection() {
   if (photos.length === 0) return null;
 
   return (
-    <section id="gallery" className="py-20 md:py-28 relative" dir="rtl">
+    <>
+      <SectionDivider />
+      <section id="gallery" className="py-20 md:py-28 relative" dir="rtl">
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         <SectionHeading eyebrow="ذكريات" title="معرض الصور" intro="لمحة من رحلتنا معاً" className="text-center mb-10 md:mb-14" />
 
@@ -255,6 +258,8 @@ export default function GallerySection() {
           )}
         </AnimatePresence>
       </div>
-    </section>
+      </section>
+      <SectionDivider />
+    </>
   );
 }

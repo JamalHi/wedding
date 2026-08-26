@@ -12,7 +12,6 @@ class Guest(models.Model):
     phone = models.CharField(max_length=20, blank=True)
     attendance = models.CharField(max_length=10, choices=ATTENDANCE_CHOICES)
     guests = models.PositiveSmallIntegerField(default=1)
-    dietary = models.CharField(max_length=100, blank=True)
     message = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

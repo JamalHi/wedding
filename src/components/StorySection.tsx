@@ -127,67 +127,6 @@ export default function StorySection() {
             </motion.div>
           ))}
         </div>
-
-        {/* اقتباس */}
-        <motion.div
-          className="text-center mt-14 md:mt-20 py-10 md:py-12 relative max-w-2xl mx-auto"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          dir="rtl"
-        >
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                'linear-gradient(135deg, rgba(194,99,122,0.10), rgba(242,196,206,0.04))',
-              border: '1px solid rgba(242,196,206,0.15)',
-              borderRadius: '24px',
-              backdropFilter: 'blur(12px)',
-            }}
-          />
-
-          {/* أوراق على الزوايا */}
-    {/*
-          <div className="absolute top-3 right-3"><Leaf size={32} rotate={-30} opacity={0.6} /></div>
-          <div className="absolute bottom-3 left-3"><Leaf size={32} rotate={150} opacity={0.6} /></div>
-
-          <p
-            className="absolute top-2 sm:top-3 right-6 sm:right-10 text-5xl sm:text-6xl md:text-7xl pointer-events-none"
-            style={{ fontFamily: 'Amiri, serif', color: 'rgba(242,196,206,0.15)' }}
-          >
-            ❝
-          </p>
-          <p
-            className="text-2xl md:text-3xl relative px-10 sm:px-14 italic"
-            style={{
-              fontFamily: 'Scheherazade New, serif',
-              color: 'rgba(255,245,247,0.9)',
-              lineHeight: 2,
-            }}
-          >
-              أنتِ يا من جعلتِ الأبد كلمةً تُشبه اسمكِ
-          </p>
-          <p
-            className="absolute bottom-2 sm:bottom-3 left-6 sm:left-10 text-5xl sm:text-6xl md:text-7xl pointer-events-none"
-            style={{ fontFamily: 'Amiri, serif', color: 'rgba(242,196,206,0.15)' }}
-          >
-            ❞
-          </p>
-          <div className="h-px w-16 mx-auto mt-6" style={{ background: 'linear-gradient(90deg, transparent, #c2637a, transparent)' }} />
-          <p
-            className="text-xs mt-4 relative"
-            style={{
-              fontFamily: 'Tajawal, sans-serif',
-              color: 'rgba(242,196,206,0.6)',
-              letterSpacing: '0.3em',
-            }}
-          >
-            — جمال و سوار
-          </p>
-    */}
-        </motion.div>
       </div>
     </section>
   );

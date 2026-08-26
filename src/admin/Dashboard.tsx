@@ -33,8 +33,7 @@ const COLUMNS = [
   { key: 'status',  label: 'الحالة',            width: '10%' },
   { key: 'guests',  label: 'الضيوف',            width: '8%'  },
   { key: 'phone',   label: 'الجوال',            width: '14%' },
-  { key: 'dietary', label: 'متطلبات غذائية',    width: '16%' },
-  { key: 'message', label: 'رسالة',             width: '25%' },
+  { key: 'message', label: 'رسالة',             width: '41%' },
   { key: 'date',    label: 'التاريخ',           width: '12%' },
 ] as const;
 const GRID_COLUMNS = COLUMNS.map(c => c.width).join(' ');
@@ -89,9 +88,9 @@ function chartTooltipStyle() {
 }
 
 function toCsv(rows: Guest[]) {
-  const header = ['الاسم', 'الإيميل', 'الجوال', 'الحالة', 'عدد الضيوف', 'متطلبات غذائية', 'رسالة', 'التاريخ'];
+  const header = ['الاسم', 'الإيميل', 'الجوال', 'الحالة', 'عدد الضيوف', 'رسالة', 'التاريخ'];
   const lines = rows.map(g => [
-    g.name, g.email, g.phone, STATUS_LABEL[g.attendance], String(g.guests), g.dietary, g.message,
+    g.name, g.email, g.phone, STATUS_LABEL[g.attendance], String(g.guests), g.message,
     new Date(g.created_at).toLocaleString('ar'),
   ].map(v => `"${(v ?? '').replace(/"/g, '""')}"`).join(','));
   return '﻿' + [header.join(','), ...lines].join('\r\n');
@@ -407,9 +406,6 @@ export default function Dashboard({ onAuthError }: { onAuthError: () => void }) 
                       </div>
                       <div className="py-4 px-4 truncate text-right" style={{ color: INK, direction: 'ltr', borderBottom: '1px solid rgba(242,196,206,0.08)' }}>
                         {g.phone || '—'}
-                      </div>
-                      <div className="py-4 px-4 truncate text-right" title={g.dietary} style={{ color: INK, borderBottom: '1px solid rgba(242,196,206,0.08)' }}>
-                        {g.dietary || '—'}
                       </div>
                       <div className="py-4 px-4 truncate text-right" title={g.message} style={{ color: INK, borderBottom: '1px solid rgba(242,196,206,0.08)' }}>
                         {g.message || '—'}

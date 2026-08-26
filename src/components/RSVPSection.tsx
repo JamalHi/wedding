@@ -13,12 +13,11 @@ interface FormData {
   phone:      string;
   attendance: Attendance;
   guests:     string;
-  dietary:    string;
   message:    string;
 }
 
 const initialForm: FormData = {
-  name: '', email: '', phone: '', attendance: '', guests: '1', dietary: '', message: '',
+  name: '', email: '', phone: '', attendance: '', guests: '1', message: '',
 };
 
 export default function RSVPSection() {
@@ -359,28 +358,6 @@ export default function RSVPSection() {
                 </motion.div>
               )}
             </AnimatePresence>
-
-            {/* المتطلبات الغذائية */}
-            <div className="space-y-2">
-              <label
-                className="text-xs block"
-                style={{
-                  fontFamily: 'Tajawal, sans-serif',
-                  color: 'rgba(242,196,206,0.75)',
-                  letterSpacing: '0.2em',
-                }}
-              >
-                متطلبات غذائيّة خاصة
-              </label>
-              <input
-                type="text"
-                value={form.dietary}
-                onChange={set('dietary')}
-                placeholder="نباتي، خالٍ من الغلوتين..."
-                className="rsvp-input w-full px-4 py-3 text-lg"
-                style={{ fontFamily: 'Amiri, serif', borderRadius: '12px' }}
-              />
-            </div>
 
             {/* رسالة */}
             <div className="space-y-2">

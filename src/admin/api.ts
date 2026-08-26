@@ -19,7 +19,6 @@ export interface Guest {
   phone:      string;
   attendance: Attendance;
   guests:     number;
-  dietary:    string;
   message:    string;
   created_at: string;
 }
@@ -28,7 +27,6 @@ export interface Stats {
   total_responses:  number;
   counts:           Record<Attendance, number>;
   total_attendees:  number;
-  dietary_requirements: { name: string; dietary: string }[];
   timeline:         { date: string; count: number }[];
 }
 

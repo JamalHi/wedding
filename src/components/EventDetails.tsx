@@ -200,50 +200,6 @@ export default function EventDetails() {
             ))}
           </div>
         </motion.div>
-
-        {/* كود اللباس */}
-    {/*
-        <motion.div
-          className="mt-14 md:mt-20 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <div
-            className="inline-block px-12 py-7 relative glass tilt-3d"
-            style={{ borderRadius: '20px' }}
-          >
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-              <Rose size={36} variant="side" />
-            </div>
-            <p
-              className="text-sm mb-2 mt-2"
-              style={{ fontFamily: 'Tajawal, sans-serif', color: 'rgba(242,196,206,0.7)', letterSpacing: '0.3em' }}
-            >
-              كود اللباس
-            </p>
-            <p
-              className="text-2xl"
-              style={{
-                fontFamily: 'Amiri, serif',
-                background: 'linear-gradient(180deg, #ffffff, #f2c4ce)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              رسميّ فاخر — Black Tie
-            </p>
-            <p
-              className="mt-1 italic"
-              style={{ fontFamily: 'Scheherazade New, serif', color: 'rgba(242,196,206,0.6)' }}
-            >
-              الألوان المفضّلة: الورديّ والأبيض
-            </p>
-          </div>
-        </motion.div>
-    */}
       </div>
     </section>
   );

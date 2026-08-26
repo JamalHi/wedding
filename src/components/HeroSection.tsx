@@ -207,7 +207,7 @@ export default function HeroSection() {
           >
             {settings.groom_father_name && `نجل السيد ${settings.groom_father_name}`}
             {settings.groom_father_name && settings.bride_father_name && '   •   '}
-            {settings.bride_father_name && `نجلة السيد ${settings.bride_father_name}`}
+            {settings.bride_father_name && `كريمة السيد ${settings.bride_father_name}`}
           </motion.p>
         )}
 
