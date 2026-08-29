@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build -- --base=/wedding/",
     "deploy": "gh-pages -d dist",
     "lint": "eslint .",
     "preview": "vite preview"

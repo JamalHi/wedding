@@ -13,22 +13,29 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 
+from decouple import Csv, config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
+# القيم الافتراضية هنا تعمل محليًا بدون أي إعداد إضافي؛
+# في الإنتاج (PythonAnywhere) تُضبط عبر متغيرات بيئة حقيقية — راجع .env.example
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-@7+)@@c38z^l#axnt1=3wx4s69m*fb_j2$5mzxo9--tn!la1r^"
+SECRET_KEY = config(
+    "SECRET_KEY",
+    default="django-insecure-@7+)@@c38z^l#axnt1=3wx4s69m*fb_j2$5mzxo9--tn!la1r^",
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", default=True, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost,127.0.0.1", cast=Csv())
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
+CORS_ALLOWED_ORIGINS = config(
+    "CORS_ALLOWED_ORIGINS", default="http://localhost:5173", cast=Csv()
+)
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -134,7 +141,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# رفع الصور (معرض الصور)
+# رفع الصور والموسيقى
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"

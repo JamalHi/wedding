@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { Save, Check } from 'lucide-react';
 import { AuthError, fetchSettingsAdmin, updateSettings, type SiteSettings } from './api';
 
-const INK       = 'var(--cream)';
 const INK_MUTED = 'var(--muted)';
 
 const FIELD_GROUPS: { title: string; fields: { key: keyof SiteSettings; label: string; multiline?: boolean }[] }[] = [

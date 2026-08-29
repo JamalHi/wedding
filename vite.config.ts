@@ -8,7 +8,8 @@ export default defineConfig({
     tailwindcss(),
     react(),
   ],
-  base: '/wedding/',
+  // '/' للنشر على نطاق مستقل (Vercel/Netlify) — يُستبدل بـ /wedding/ عند النشر لـ GitHub Pages عبر npm run deploy
+  base: '/',
   optimizeDeps: {
     include: ['framer-motion', 'gsap', 'lucide-react'],
   },

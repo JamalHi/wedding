@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { Upload, Music2, Trash2 } from 'lucide-react';
 import { AuthError, fetchMusicAdmin, uploadMusic, deleteMusic, type SiteMusic } from './api';
 
-const INK       = 'var(--cream)';
 const INK_MUTED = 'var(--muted)';
 
 export default function MusicEditor({ onAuthError }: { onAuthError: () => void }) {
